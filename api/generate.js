@@ -1,4 +1,3 @@
-
 export const config = { runtime: 'edge' };
 
 const PROVIDER = process.env.PROVIDER || 'openrouter';
@@ -17,14 +16,14 @@ export default async function handler(req) {
   if (req.method !== 'POST') {
     return new Response('Method not allowed', { status: 405 });
   }
+
   try {
     const { prompt, tone } = await req.json();
-    if (!API_KEY) return new Response('Falta API_KEY', { status: 400 });
 
-    const system = `Sos un asistente de redacción corporativa. Objetivo: generar textos profesionales claros, concisos, con tono ${tone}.
-- No inventes datos.
-- Usá español neutro.
-- Longitud objetivo: 120-220 palabras.`;
+    if (!API_KEY) 
+        return new Response('Falta API_KEY', { status: 400 });
+
+    const system = `Sos un asistente de redacción profesional. Tono: ${tone}.`;
 
     const body = {
       model: MODEL,
@@ -32,28 +31,26 @@ export default async function handler(req) {
         { role: 'system', content: system },
         { role: 'user', content: prompt }
       ],
-      temperature: 0.5,
-      max_tokens: 350
+      temperature: 0.5
     };
 
     const r = await fetch(ENDPOINTS[PROVIDER], {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${API_KEY}`
       },
-      body: JSON.stringify(body)
+      body:JSON.stringify(body)
     });
-    if (!r.ok) {
-      const t = await r.text();
-      return new Response(`Error proveedor: ${t}`, { status: 500 });
-    }
-    const js = await r.json();
-    const text = js?.choices?.[0]?.message?.content?.trim?.() || '';
+
+    const js   = await r.json();
+    const text = js?.choices?.[0]?.message?.content || '';
+
     return new Response(JSON.stringify({ text }), {
-      headers: { 'Content-Type': 'application/json' }
+      headers:{ 'Content-Type':'application/json' }
     });
+
   } catch (e) {
-    return new Response(String(e), { status: 500 });
+    return new Response(String(e), { status:500 });
   }
 }
