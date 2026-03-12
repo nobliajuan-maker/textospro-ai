@@ -4,122 +4,98 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TextosPro IA — Redacción profesional en segundos</title>
-
-  <meta name="description" content="Generá mails formales, respuestas a reclamos y textos profesionales en segundos con IA. Gratis, simple y sin registrarte.">
-  /public/favicon.ico
+  <title>textospro.ai — Redacción profesional en segundos</title>
+  <meta name="description" content="Generá mails formales, respuestas a reclamos y textos profesionales en segundos con IA. Rápido, simple y sin registrarte.">
+  <avicon.ico
 
   <style>
-    :root{--bg:#0b1220;--panel:#0f172a;--muted:#9aa3b2;--text:#e6e9ef;--pri:#2563eb;--pri2:#38bdf8}
-    *{box-sizing:border-box} 
+    :root{
+      --bg:#0b1220; --bg2:#0e172b; --panel:#0f172a; --line:#1f2937;
+      --text:#e6e9ef; --muted:#9aa3b2;
+      --pri:#2563eb; --pri2:#38bdf8; --ok:#22c55e;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;
-      background:linear-gradient(180deg,#071222,#0b1220);
+      margin:0; background:
+        radial-gradient(1200px 400px at 10% -10%, rgba(56,189,248,.08), transparent 60%),
+        radial-gradient(1200px 400px at 110% -10%, rgba(37,99,235,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
       color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial;
     }
-    header{
-      padding:22px 14px;
-      border-bottom:1px solid rgba(255,255,255,.06)
-    }
-    .wrap{max-width:980px;margin:0 auto;padding:16px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:28px;height:28px}
-    h1{font-size:clamp(22px,4vw,32px);margin:8px 0}
+    header{border-bottom:1px solid rgba(255,255,255,.06); position:sticky; top:0; backdrop-filter: blur(8px); background:rgba(11,18,32,.65)}
+    .wrap{max-width:1000px; margin:0 auto; padding:16px}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{width:28px; height:28px}
+    .title{margin:8px 0 0; font-weight:800; letter-spacing:.2px; font-size:clamp(22px,4vw,32px)}
+    .lead{color:var(--muted); margin-top:6px}
+
+    .ad{margin-top:16px; border:1px dashed rgba(255,255,255,.12); border-radius:12px; height:120px;
+         display:flex; align-items:center; justify-content:center; color:#9aa; font-size:13px; background:rgba(255,255,255,.03)}
+
+    .grid{display:grid; grid-template-columns:1fr; gap:16px; margin-top:16px}
+    @media(min-width:960px){ .grid{ grid-template-columns:1.05fr .95fr } }
+
     .panel{
-      background:rgba(15,23,42,.9);
-      backdrop-filter:blur(8px);
+      background:rgba(15,23,42,.85);
       border:1px solid rgba(255,255,255,.06);
-      border-radius:14px;
-      padding:16px
+      border-radius:14px; padding:16px
     }
     label{font-weight:600}
-    textarea,input,select{
-      width:100%;
-      background:#0b1020;
-      color:var(--text);
-      border:1px solid rgba(255,255,255,.1);
-      border-radius:10px;
-      padding:10px
+    textarea, select{
+      width:100%; background:#0b1020; color:var(--text);
+      border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:10px
     }
-    textarea{min-height:140px;resize:vertical}
-    .row{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:900px){
-      .row{grid-template-columns:1.1fr .9fr}
-    }
+    textarea{min-height:160px; resize:vertical}
+    .row{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
     .btn{
-      background:linear-gradient(90deg,var(--pri),var(--pri2));
-      border:0;color:#001a2b;font-weight:700;
-      padding:12px 16px;border-radius:10px;
-      cursor:pointer
+      background:linear-gradient(90deg, var(--pri), var(--pri2)); color:#001a2b; font-weight:700;
+      border:0; border-radius:10px; padding:12px 16px; cursor:pointer
     }
-    .btn:disabled{opacity:.5;cursor:not-allowed}
-    .muted{color:var(--muted);font-size:14px}
-    .ad-slot{
-      display:flex;align-items:center;justify-content:center;
-      background:rgba(255,255,255,.03);
-      border:1px dashed rgba(255,255,255,.12);
-      border-radius:12px;
-      color:#9aa; font-size:13px;
-      height:120px
-    }
+    .btn.secondary{ background:linear-gradient(90deg, #22c55e,#86efac); }
+    .btn:disabled{opacity:.55; cursor:not-allowed}
     .output{
-      white-space:pre-wrap;
-      background:#0b1020;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:10px;padding:12px;min-height:140px
+      white-space:pre-wrap; background:#0b1020; border:1px solid rgba(255,255,255,.12);
+      border-radius:10px; padding:12px; min-height:160px
     }
-    footer{
-      padding:22px 16px;
-      text-align:center;
-      color:#9aa;
-      font-size:13px;
-      border-top:1px solid rgba(255,255,255,.06);
-      margin-top:18px
-    }
-    a{color:#93c5fd}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px}
     .chip{
-      border:1px solid rgba(255,255,255,.15);
-      border-radius:999px;
-      padding:6px 10px;font-size:12px;
-      cursor:pointer
+      border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:6px 10px; font-size:12px; cursor:pointer
     }
-    .chip:hover{background:rgba(255,255,255,.06)}
-    .notice{font-size:12px;color:#9aa}
+    .chip:hover{ background:rgba(255,255,255,.06) }
+    footer{color:#9aa; font-size:13px; border-top:1px solid rgba(255,255,255,.06); margin-top:18px; padding:22px 16px; text-align:center}
+    a{color:#93c5fd}
+    .small{color:var(--muted); font-size:12px}
   </style>
 </head>
-
 <body>
   <header>
     <div class="wrap">
       <div class="brand">
-        /public/logo.svg
-        <strong>textospro.ai</strong>
-      </div>
-      <h1>Redacción profesional en segundos</h1>
-      <div class="muted">Escribí qué necesitás (mail, respuesta a reclamo, propuesta, nota formal) y elegí el tono. La IA hace el resto.</div>
+        <img src="logo.svg" alt="textospro.ai" style="vertical-align:middleh1 class="title">Redacción profesional en segundos</h1>
+      <p class="lead">Escribí qué necesitás (mail, respuesta a reclamo, propuesta, nota formal) y elegí el tono. La IA hace el resto.</p>
     </div>
   </header>
 
-  <main class="wrap" style="margin-top:12px">
-    <div class="ad-slot">Espacio para anuncio (AdSense responsive)</div>
+  <main class="wrap">
+    <!-- Ad superior -->
+    <div class="ad">Espacio para anuncio (AdSense responsive)</div>
 
-    <div class="row" style="margin-top:12px">
+    <div class="grid">
       <section class="panel">
         <div class="chips">
-          <div class="chip" data-prompt="Escribí un mail formal a un cliente comunicando un aumento de tarifa.">Mail aumento de tarifa</div>
-          <div class="chip" data-prompt="Redactá una respuesta profesional a un reclamo por demora.">Respuesta a reclamo</div>
-          <div class="chip" data-prompt="Armá una propuesta comercial breve.">Propuesta breve</div>
-          <div class="chip" data-prompt="Escribí una nota bancaria solicitando reconsideración.">Nota bancaria</div>
+          <div class="chip" data-prompt="Escribí un mail formal a un cliente comunicando un aumento de tarifa, ofreciendo alternativas y manteniendo relación cordial.">Mail aumento de tarifa</div>
+          <div class="chip" data-prompt="Redactá una respuesta profesional a un reclamo por demora en la entrega, con disculpas, explicación breve y compensación.">Respuesta a reclamo</div>
+          <div class="chip" data-prompt="Armá una propuesta comercial breve para consultoría, con objetivos, entregables y próximos pasos.">Propuesta breve</div>
+          <div class="chip" data-prompt="Escribí una nota bancaria solicitando reconsideración de condiciones para crédito pyme.">Nota bancaria</div>
         </div>
 
-        <div style="margin-top:10px">
-          <label for="input">¿Qué necesitás redactar?</label>
-          <textarea id="input" placeholder="Ej.: Necesito un mail formal para..."></textarea>
-        </div>
-        <div style="display:flex; gap:12px; align-items:center; margin-top:10px">
-          <label for="tone" style="min-width:140px">Tono</label>
+        <label for="input">¿Qué necesitás redactar?</label>
+        <textarea id="input" placeholder="Ej.: Necesito un mail formal para…"></textarea>
+
+        <div class="row" style="margin-top:10px">
+          <label for="tone">Tono</label>
           <select id="tone">
             <option value="formal">Formal</option>
             <option value="profesional">Profesional</option>
@@ -128,23 +104,33 @@
           </select>
           <button class="btn" id="generateBtn">Generar texto profesional</button>
         </div>
-        <div class="notice" style="margin-top:6px">Privacidad: no almacenamos tus datos.</div>
+        <p class="small" style="margin-top:6px">Privacidad: no almacenamos tus datos.</p>
       </section>
 
       <section class="panel">
-        <div class="muted" style="margin-bottom:6px">Resultado</div>
+        <div class="row" style="justify-content:space-between; align-items:center">
+          <strong>Resultado</strong>
+        </div>
         <div id="output" class="output">Tu texto aparecerá aquí…</div>
-        <div style="display:flex; gap:10px; margin-top:10px">
+        <div class="row" style="margin-top:10px">
           <button class="btn" id="copyBtn">Copiar</button>
-          <button class="btn" id="clearBtn" style="background:linear-gradient(90deg,#22c55e,#86efac)">Limpiar</button>
+          <button class="btn secondary" id="clearBtn">Limpiar</button>
         </div>
       </section>
     </div>
 
-    <div style="margin-top:16px" class="ad-slot">Espacio para anuncio (AdSense responsive)</div>
+    <!-- Ad inferior -->
+    <div class="ad" style="margin-top:16px">Espacio para anuncio (AdSense responsive)</div>
   </main>
 
+  <footer>
+    © <span id="year"></span> textospro.ai — #Privacidad</a>
+  </footer>
+
   <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Accesos rápidos
     document.querySelectorAll('.chip').forEach(el=>{
       el.addEventListener('click', ()=> {
         document.getElementById('input').value = el.dataset.prompt;
@@ -154,6 +140,18 @@
     const btn = document.getElementById('generateBtn');
     const out = document.getElementById('output');
     const tone = document.getElementById('tone');
+    const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    copyBtn.onclick = async ()=>{
+      await navigator.clipboard.writeText(out.textContent || '');
+      copyBtn.textContent = 'Copiado ✓';
+      setTimeout(()=>copyBtn.textContent='Copiar', 1200);
+    };
+    clearBtn.onclick = ()=>{
+      document.getElementById('input').value='';
+      out.textContent='Tu texto aparecerá aquí…';
+    };
 
     btn.onclick = async ()=>{
       const prompt = document.getElementById('input').value.trim();
@@ -166,8 +164,11 @@
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({ prompt, tone: tone.value })
         });
+        if(!res.ok){ throw new Error(await res.text()); }
         const data = await res.json();
         out.textContent = data.text || 'No se pudo generar.';
+      } catch(e){
+        out.textContent = 'Error: ' + e.message;
       } finally {
         btn.disabled = false; btn.textContent = 'Generar texto profesional';
       }
